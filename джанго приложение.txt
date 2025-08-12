@@ -83,6 +83,9 @@ book_advanced = Book.objects.filter(title__startswith='Advanced')
 
 
 14. Найди все отзывы, у которых есть комментарий.
+>>> reviews_comment = Review.objects.filter(comment__isnull=False)
+>>> print(reviews_comment)
+<QuerySet [<Review: Review object (1)>, <Review: Review object (3)>, <Review: Review object (5)>, <Review: Review object (6)>, <Review: Review object (7)>, <Review: Review object (9)>, <Review: Review object (10)>, <Review: Review object (12)>, <Review: Review object (16)>, <Review: Review object (17)>, <Review: Review object (18)>, <Review: Review object (19)>, <Review: Review object (20)>, <Review: Review object (21)>, <Review: Review object (22)>, <Review: Review object (25)>, <Review: Review object (26)>, <Review: Review object (27)>, <Review: Review object (29)>, <Review: Review object (30)>, '...(remaining elements truncated)...']>
 
 
 15. Найди авторов с идентификаторами 1, 3 и 5.
@@ -91,10 +94,19 @@ book_advanced = Book.objects.filter(title__startswith='Advanced')
 
 
 16. Найди книги, опубликованные с 1 января по 31 декабря 2023 года.
+>>> book_2023 = Book.objects.filter(published_date__range=[datetime(2023,1,1), datetime(2023,12,31,23,59,59)])
+/usr/local/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1595: RuntimeWarning: DateTimeField Book.published_date received a naive datetime (2023-01-01 00:00:00) while time zone support is active.
+  warnings.warn(
+/usr/local/lib/python3.11/site-packages/django/db/models/fields/__init__.py:1595: RuntimeWarning: DateTimeField Book.published_date received a naive datetime (2023-12-31 23:59:59) while time zone support is active.
+  warnings.warn(
+>>> print(book_2023)
+<QuerySet []>
 
 
 17. Найди книги, название которых начинается со слова «Python».
->>> <QuerySet [<Book: Book object (1)>, <Book: Book object (3)>, <Book: Book object (5)>, <Book: Book object (7)>, <Book: Book object (9)>, <Book: Book object (11)>, <Book: Book object (13)>, <Book: Book object (15)>, <Book: Book object (17)>, <Book: Book object (19)>]>
+>>> book_python = Book.objects.filter(title__regex=r"^Python")
+>>> print(book_python)
+<QuerySet [<Book: Book object (1)>, <Book: Book object (3)>, <Book: Book object (5)>, <Book: Book object (7)>, <Book: Book object (9)>, <Book: Book object (11)>, <Book: Book object (13)>, <Book: Book object (15)>, <Book: Book object (17)>, <Book: Book object (19)>]>
 
 
 18. Найди авторов, чья фамилия начинается на «Mc» (игнорируя регистр).
@@ -132,19 +144,35 @@ book_advanced = Book.objects.filter(title__startswith='Advanced')
 <QuerySet []>
 
 
-25.Найди отзывы, сделанные в определённую дату. --------------------------------
+25.Найди отзывы, сделанные в определённую дату.
+>>> reviewse_date = Review.objects.filter(created_at__date=date_t.date())
+>>> print(reviewse_date)
+<QuerySet []>
 
 
-26.Найди отзывы, сделанные ровно в 15:30. -------------------------------
+26.Найди отзывы, сделанные ровно в 15:30.
+>>> reviews = Review.objects.filter(created_at__hour=15, created_at__minute=30)
+>>> print(reviews)
+<QuerySet []>
+>>>
 
 
-27.Найди отзывы, сделанные в 15 часов. ------------------------------
+27.Найди отзывы, сделанные в 15 часов. 
+>>> reviews = Review.objects.filter(created_at__hour=15)
+>>> print(reviews)
+<QuerySet []>
 
 
-28.Найди отзывы, сделанные в 30 минут любого часа. -----------------------------
+28.Найди отзывы, сделанные в 30 минут любого часа. 
+>>> reviews = Review.objects.filter(created_at__minute=30)
+>>> print(reviews)
+<QuerySet []>
 
 
-29.Найди отзывы, созданные в момент, когда секунды были равны 0. --------------------------------
+29.Найди отзывы, созданные в момент, когда секунды были равны 0. 
+>>> reviews = Review.objects.filter(created_at__second=0)
+>>> print(reviews)
+<QuerySet []>
 
 
 30.Найди книги, написанные автором с почтой «author@example.com».
