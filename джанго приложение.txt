@@ -1,0 +1,220 @@
+1. Найди всех авторов с именем «John».
+Ajohn = Author.objects.filter(first_name='John')
+>>> print(Ajohn)
+<QuerySet []>
+
+
+2. Найди всех авторов, кроме тех, у кого фамилия «Doe».
+>>> not_doe = Author.objects.exclude(last_name='Doe')
+>>> print(not_doe)
+<QuerySet [<Author: Author object (1)>, <Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>, <Author: Author object (5)>]>
+
+
+3. Найди все книги, цена которых меньше 500.
+>>> price_500 = Book.objects.filter(price__lt=500)
+>>> print(price_500)
+<QuerySet [<Book: Book object (3)>, <Book: Book object (5)>, <Book: Book object (9)>, <Book: Book object (14)>, <Book: Book object (17)>, <Book: Book object (20)>]>
+>>>
+
+
+4. Найди все книги с ценой не более 300.
+>>> price_300 = Book.objects.filter(price__lte=300)
+>>> print(price_300)
+<QuerySet [<Book: Book object (3)>, <Book: Book object (5)>, <Book: Book object (9)>]>
+>>>
+
+
+5. Найди все книги дороже 1000.
+>>> price_1000 = Book.objects.filter(price__gt=1000)
+>>> print(price_1000)
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (7)>, <Book: Book object (11)>, <Book: Book object (13)>, <Book: Book object (16)>, <Book: Book object (19)>]>
+>>>
+
+
+6. Найди все книги с ценой от 750 и выше.
+>>> price_750 = Book.objects.filter(price__gte=750)
+>>> print(price_750)
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (4)>, <Book: Book object (6)>, <Book: Book object (7)>, <Book: Book object (8)>, <Book: Book object (11)>, <Book: Book object (12)>, <Book: Book object (13)>, <Book: Book object (15)>, <Book: Book object (16)>, <Book: Book object (19)>]>
+>>>
+
+
+7. Найди все книги, содержащие слово «django» в названии.
+>>> book_django = Book.objects.filter(title__icontains='django')
+>>> print(book_django)
+<QuerySet [<Book: Book object (2)>, <Book: Book object (4)>, <Book: Book object (6)>, <Book: Book object (8)>, <Book: Book object (10)>, <Book: Book object (12)>, <Book: Book object (14)>, <Book: Book object (16)>, <Book: Book object (18)>, <Book: Book object (20)>]>
+>>>
+
+
+8.Найди книги, в названии которых есть «python» (без учёта регистра).
+>>> book_python = Book.objects.filter(title__icontains='python')
+>>> print(book_python)
+<QuerySet [<Book: Book object (1)>, <Book: Book object (3)>, <Book: Book object (5)>, <Book: Book object (7)>, <Book: Book object (9)>, <Book: Book object (11)>, <Book: Book object (13)>, <Book: Book object (15)>, <Book: Book object (17)>, <Book: Book object (19)>]>
+>>>
+
+
+9. Найди книги, название которых начинается со слова «Advanced».
+book_advanced = Book.objects.filter(title__startswith='Advanced')
+>>> print(book_advanced)
+<QuerySet []>
+
+
+10. Найди книги, название которых начинается с «pro» (игнорируя регистр).
+>>> book_pro = Book.objects.filter(title__istartswith='pro')
+>>> print(book_pro)
+<QuerySet []>
+
+
+11. Найди книги, название которых заканчивается на слово «Guide».
+>>> book_guide = Book.objects.filter(title__endswith='Guide')
+>>> print(book_guide)
+<QuerySet []>
+
+
+12. Найди книги, название которых заканчивается на «tutorial» (без учёта регистра).
+>>> book_tutorial = Book.objects.filter(title__iendswith='tutorial')
+>>> print(book_tutorial)
+<QuerySet []>
+
+
+13. Найди все отзывы без комментариев.
+>>> authors = Author.objects.filter(id__in=[1, 3, 5])
+>>> print(authors)
+<QuerySet [<Author: Author object (1)>, <Author: Author object (3)>, <Author: Author object (5)>]>
+
+
+14. Найди все отзывы, у которых есть комментарий.
+
+
+15. Найди авторов с идентификаторами 1, 3 и 5.
+>>> Author.objects.filter(id__in=[1, 3, 5])
+<QuerySet [<Author: Author object (1)>, <Author: Author object (3)>, <Author: Author object (5)>]>
+
+
+16. Найди книги, опубликованные с 1 января по 31 декабря 2023 года.
+
+
+17. Найди книги, название которых начинается со слова «Python».
+>>> <QuerySet [<Book: Book object (1)>, <Book: Book object (3)>, <Book: Book object (5)>, <Book: Book object (7)>, <Book: Book object (9)>, <Book: Book object (11)>, <Book: Book object (13)>, <Book: Book object (15)>, <Book: Book object (17)>, <Book: Book object (19)>]>
+
+
+18. Найди авторов, чья фамилия начинается на «Mc» (игнорируя регистр).
+>>> Book.objects.filter(title__iexact="python")  # или icontains для вхождения
+<QuerySet []>
+
+
+19. Найди книги, опубликованные в 2024 году.
+>>> Book.objects.filter(published_date__year=2024)
+<QuerySet []>
+
+
+20. Найди книги, опубликованные в июне.
+>>> Book.objects.filter(published_date__month=6)
+<QuerySet []>
+
+
+21. Найди отзывы, оставленные 11-го числа любого месяца.
+>>> Review.objects.filter(created_at__day=11)
+<QuerySet []>
+
+
+22. Найди книги, опубликованные на 23-й неделе года.
+>>> Book.objects.filter(published_date__week=23)
+<QuerySet []>
+
+
+23. Найди отзывы, оставленные во вторник.
+>>> Review.objects.filter(created_at__week_day=2)
+<QuerySet []>
+
+
+24. Найди книги, опубликованные во втором квартале года.
+>>> Book.objects.filter(published_date__quarter=2)
+<QuerySet []>
+
+
+25.Найди отзывы, сделанные в определённую дату. --------------------------------
+
+
+26.Найди отзывы, сделанные ровно в 15:30. -------------------------------
+
+
+27.Найди отзывы, сделанные в 15 часов. ------------------------------
+
+
+28.Найди отзывы, сделанные в 30 минут любого часа. -----------------------------
+
+
+29.Найди отзывы, созданные в момент, когда секунды были равны 0. --------------------------------
+
+
+30.Найди книги, написанные автором с почтой «author@example.com».
+>>> Book.objects.filter(author__email="author@example.com")
+<QuerySet []>
+
+
+31.Найди книги авторов, чья фамилия содержит «smith» (без учёта регистра).
+>>> Book.objects.filter(author__last_name__icontains="smith")
+<QuerySet []>
+
+
+32.Найди авторов, написавших более пяти книг.
+>>> Author.objects.annotate(num_books=Count('books')).filter(num_books__gt=5)
+<QuerySet [<Author: Author object (4)>, <Author: Author object (1)>]>
+
+
+
+33.Найди книги, у которых значение ключа «genre» равно «fiction».
+>>> Book.objects.filter(metadata__genre="fiction")
+<QuerySet [<Book: Book object (2)>, <Book: Book object (4)>, <Book: Book object (6)>, <Book: Book object (8)>, <Book: Book object (10)>, <Book: Book object (12)>, <Book: Book object (14)>, <Book: Book object (16)>, <Book: Book object (18)>, <Book: Book object (20)>]>
+
+
+34.Найди книги, где значение ключа «tags» содержит слово «bestseller» (игнорируя регистр).
+>>> Book.objects.filter(metadata__tags__icontains="bestseller")
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>, <Book: Book object (6)>, <Book: Book object (7)>, <Book: Book object (8)>, <Book: Book object (9)>, <Book: Book object (10)>, <Book: Book object (11)>, <Book: Book object (12)>, <Book: Book object (13)>, <Book: Book object (14)>, <Book: Book object (15)>, <Book: Book object (16)>, <Book: Book object (17)>, <Book: Book object (18)>, <Book: Book object (19)>, <Book: Book object (20)>]>
+
+
+35.Найди книги, у которых цена равна скидке.
+>>> Book.objects.filter(price=F('discount'))
+<QuerySet []>
+
+
+36. Найди книги, у которых цена больше скидки.
+>>> Book.objects.filter(price__gt=F('discount'))
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (6)>, <Book: Book object (7)>, <Book: Book object (8)>, <Book: Book object (9)>, <Book: Book object (10)>, <Book: Book object (11)>, <Book: Book object (12)>, <Book: Book object (13)>, <Book: Book object (14)>, <Book: Book object (15)>, <Book: Book object (16)>, <Book: Book object (17)>, <Book: Book object (18)>, <Book: Book object (19)>, <Book: Book object (20)>]>
+
+
+37. Найди авторов с именем «Alice» или с фамилией, не равной «Brown».
+>>> Author.objects.filter(Q(first_name="Alice") | ~Q(last_name="Brown"))
+<QuerySet [<Author: Author object (1)>, <Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>, <Author: Author object (5)>]>
+
+
+38. Подсчитай количество книг каждого автора.
+>>> Author.objects.annotate(book_count=Count('books'))
+<QuerySet [<Author: Author object (4)>, <Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (1)>, <Author: Author object (5)>]>
+
+
+39. Подсчитай средний рейтинг каждой книги.
+>>> Book.objects.annotate(avg_rating=Avg('reviews__rating'))
+<QuerySet [<Book: Book object (11)>, <Book: Book object (8)>, <Book: Book object (19)>, <Book: Book object (4)>, <Book: Book object (14)>, <Book: Book object (3)>, <Book: Book object (17)>, <Book: Book object (20)>, <Book: Book object (10)>, <Book: Book object (9)>, <Book: Book object (13)>, <Book: Book object (7)>, <Book: Book object (1)>, <Book: Book object (5)>, <Book: Book object (18)>, <Book: Book object (2)>, <Book: Book object (16)>, <Book: Book object (15)>, <Book: Book object (6)>, <Book: Book object (12)>]>
+
+
+40. Посчитай окончательную цену книги (цена минус скидка).
+>>> books_price = Book.objects.annotate(final_price=F('price') - F('discount'))
+>>> print(books_price)
+<QuerySet [<Book: Book object (1)>, <Book: Book object (2)>, <Book: Book object (3)>, <Book: Book object (4)>, <Book: Book object (5)>, <Book: Book object (6)>, <Book: Book object (7)>, <Book: Book object (8)>, <Book: Book object (9)>, <Book: Book object (10)>, <Book: Book object (11)>, <Book: Book object (12)>, <Book: Book object (13)>, <Book: Book object (14)>, <Book: Book object (15)>, <Book: Book object (16)>, <Book: Book object (17)>, <Book: Book object (18)>, <Book: Book object (19)>, <Book: Book object (20)>]>
+
+
+41. Получи список книг и авторов так, чтобы выполнить всего один SQL-запрос.
+>>> book_author = Book.objects.select_related('author').all()
+>>> print(book_author)
+<QuerySet [<Book: Book object (20)>, <Book: Book object (14)>, <Book: Book object (7)>, <Book: Book object (5)>, <Book: Book object (4)>, <Book: Book object (1)>, <Book: Book object (17)>, <Book: Book object (15)>, <Book: Book object (10)>, <Book: Book object (6)>, <Book: Book object (18)>, <Book: Book object (9)>, <Book: Book object (19)>, <Book: Book object (13)>, <Book: Book object (12)>, <Book: Book object (11)>, <Book: Book object (8)>, <Book: Book object (2)>, <Book: Book object (16)>, <Book: Book object (3)>]>
+
+
+42. Получи список авторов и всех их книг так, чтобы было выполнено ровно два SQL-запроса.
+>>> author_book = Author.objects.prefetch_related('books').all()
+>>> print(author_book)
+<QuerySet [<Author: Author object (1)>, <Author: Author object (2)>, <Author: Author object (3)>, <Author: Author object (4)>, <Author: Author object (5)>]>
+
+
+
+
